@@ -65,6 +65,68 @@ class TestCaseContainer {
     this.testMoves(description, expected, actual);
   }
 
+  testCase8() {
+    const description = "Checking Queen moves for A1 position";
+    const expected = [
+      CELLS.B2,
+      CELLS.C3,
+      CELLS.D4,
+      CELLS.E5,
+      CELLS.F6,
+      CELLS.G7,
+      CELLS.H8,
+      CELLS.B1,
+      CELLS.C1,
+      CELLS.D1,
+      CELLS.E1,
+      CELLS.F1,
+      CELLS.G1,
+      CELLS.H1,
+      CELLS.A2,
+      CELLS.A3,
+      CELLS.A4,
+      CELLS.A5,
+      CELLS.A6,
+      CELLS.A7,
+      CELLS.A8,
+    ];
+    const actual = this.chessboard.getPossibleMoves(PIECE_TYPE.QUEEN, CELLS.A1);
+    this.testMoves(description, expected, actual);
+  }
+
+  testCase9() {
+    const description = "Checking Queen moves for C3 position";
+    const expected = [
+      CELLS.B2,
+      CELLS.A1,
+      CELLS.D4,
+      CELLS.E5,
+      CELLS.F6,
+      CELLS.G7,
+      CELLS.H8,
+      CELLS.A3,
+      CELLS.B3,
+      CELLS.D3,
+      CELLS.E3,
+      CELLS.F3,
+      CELLS.G3,
+      CELLS.H3,
+      CELLS.C1,
+      CELLS.C2,
+      CELLS.C4,
+      CELLS.C5,
+      CELLS.C6,
+      CELLS.C7,
+      CELLS.C8,
+      CELLS.B4,
+      CELLS.A5,
+      CELLS.D2,
+      CELLS.E1,
+    ];
+    const actual = this.chessboard.getPossibleMoves(PIECE_TYPE.QUEEN, CELLS.C3);
+    this.testMoves(description, expected, actual);
+  }
+
   testMoves(description, expected, actual) {
     if (actual === null) {
       return;
@@ -77,13 +139,20 @@ class TestCaseContainer {
           return !actual.includes(move);
         });
         if (missedMove) {
-          console.error(`${description} - FAILED\n`);
+          console.error(
+            `${description} - FAILED - Missed Move = ${missedMove}\n`
+          );
           this.failed++;
         } else {
           this.passed++;
         }
       } else {
-        console.error(`${description} - FAILED\n`);
+        const missedMove = expected.find((move) => {
+          return !actual.includes(move);
+        });
+        console.error(
+          `${description} - FAILED - Actual length not equals expected length (Missed Move = ${missedMove})\n`
+        );
         this.failed++;
       }
     }
@@ -100,6 +169,8 @@ class TestCaseContainer {
     this.testCase5();
     this.testCase6();
     this.testCase7();
+    this.testCase8();
+    this.testCase9();
     console.log("*************** Summary **************************\n");
     console.log(`Total Test cases : ${this.testCases.length}`);
     console.log(`Passed Test cases : ${this.passed}`);

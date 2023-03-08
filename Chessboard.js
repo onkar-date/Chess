@@ -115,7 +115,7 @@ export default class Chessboard {
 
   #isInvalidPosition = (currentPosition) => {
     if (Number(currentPosition[1]) < 0 || Number(currentPosition[1]) > 8) {
-      return true;
+      return null;
     }
     return false;
   };
@@ -123,23 +123,17 @@ export default class Chessboard {
   getPossibleMoves = (piece, currentPosition) => {
     if (this.#isInvalidPosition(currentPosition)) {
       console.error("Invalid Position Provided!!!");
-      return;
+      return [];
     }
     switch (piece) {
       case PIECE_TYPE.PAWN:
-        return `Possible Moves for ${piece} from position ${currentPosition} are : \n ${this.#getPawnMoves(
-          currentPosition
-        )}`;
+        return this.#getPawnMoves(currentPosition);
 
       case PIECE_TYPE.KING:
-        return `Possible Moves for ${piece} from position ${currentPosition} are : \n ${this.#getKingMoves(
-          currentPosition
-        )}`;
+        return this.#getKingMoves(currentPosition);
 
       case PIECE_TYPE.QUEEN:
-        return `Possible Moves for ${piece} from position ${currentPosition} are : \n ${this.#getQueenMoves(
-          currentPosition
-        )}`;
+        return this.#getQueenMoves(currentPosition);
 
       default:
         console.error(

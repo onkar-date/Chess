@@ -2,6 +2,9 @@
 
 Simple JavasSript code which identifies possible moves of chess piece.
 
+# Requirements
+1. NodeJs
+
 # Steps to run project
 
 1. Set the the piece type and current position values

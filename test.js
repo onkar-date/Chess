@@ -127,6 +127,28 @@ class TestCaseContainer {
     this.testMoves(description, expected, actual);
   }
 
+  testCase10() {
+    const description =
+      "Should throw error if invalid current position is provided";
+    try {
+      const position = "L9";
+      const possibleMoves = this.chessboard.getPossibleMoves(
+        PIECE_TYPE.PAWN,
+        position
+      );
+      if (possibleMoves) {
+        this.failed++;
+        console.error(
+          `${description} - FAILED - Should not calculate moves for invalid position - ${position} \n`
+        );
+      }
+    } catch (err) {
+      if (err) {
+        this.passed++;
+      }
+    }
+  }
+
   testMoves(description, expected, actual) {
     if (actual === null) {
       return;
@@ -171,6 +193,7 @@ class TestCaseContainer {
     this.testCase7();
     this.testCase8();
     this.testCase9();
+    this.testCase10();
     console.log("*************** Summary **************************\n");
     console.log(`Total Test cases : ${this.testCases.length}`);
     console.log(`Passed Test cases : ${this.passed}`);
